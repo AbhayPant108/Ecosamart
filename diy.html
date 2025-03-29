@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Ideas - EcoEarth</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Navbar Styles */
+        .navbar {
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .navbar-brand i {
+            font-size: 1.8rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .points-badge {
+            background-color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: white;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .points-badge:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .language-selector {
+            width: 120px;
+        }
+
+        .language-selector .form-select {
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+        }
+
+        .btn-success {
+            border-radius: 20px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: white;
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: var(--shadow);
+                margin-top: 1rem;
+            }
+
+            .navbar-nav {
+                margin-bottom: 1rem;
+            }
+
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+
+            .d-flex.align-items-center {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
+            .points-badge {
+                width: 100%;
+                text-align: center;
+            }
+
+            .language-selector {
+                width: 100%;
+            }
+
+            .btn-success {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+
+            .navbar-brand i {
+                font-size: 1.5rem;
+            }
+
+            .points-badge {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .language-selector .form-select {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .btn-success {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        .video-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #f8f9fa;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(46, 204, 113, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover .play-button {
+            background-color: var(--primary-color);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .video-description {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .video-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .difficulty-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .difficulty-easy {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+        }
+
+        .difficulty-medium {
+            background-color: rgba(241, 196, 15, 0.1);
+            color: var(--accent-color);
+        }
+
+        .difficulty-hard {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--danger-color);
+        }
+
+        .filter-section {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filter-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            background: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-recycle text-success me-2"></i>EcoEarth
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="classify.html">Classify</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="centres.html">Centres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">DIY Ideas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a style="text-decoration: none;" href="rewards.html" class="points-badge me-3">
+                        <i class="fas fa-star"></i> <span id="userPoints">100</span> Points
+                    </a>
+                    <div class="language-selector">
+                        <select class="form-select" id="languageSelect">
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी</option>
+                            <option value="es">Español</option>
+                        </select>
+                    </div>
+                    <a class="nav-link btn btn-success text-white px-3 ms-3" href="login.html">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container" style="margin-top: 100px;">
+        <h1 class="text-center mb-5">DIY Recycling Ideas</h1>
+        
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h5 class="filter-title">Filter by Category</h5>
+            <div class="filter-options">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Plastic</button>
+                <button class="filter-btn">Paper</button>
+                <button class="filter-btn">Glass</button>
+                <button class="filter-btn">Metal</button>
+                <button class="filter-btn">Textiles</button>
+            </div>
+        </div>
+
+        <!-- Video Grid -->
+        <div class="row">
+            <!-- Video Card 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="https://cdn-images-1.medium.com/max/800/0*fF-Lojx_e4sj3Dup.jpg" alt="Plastic Bottle Planter">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div></a>
+                  
+                    </div>
+                    <div class="video-info">
+                        <h5 class="video-title">DIY Plastic Bottle Planter</h5>
+                        <p class="video-description">Transform empty plastic bottles into beautiful hanging planters for your home or garden.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock me-1"></i> 5 min</span>
+                            <span class="difficulty-badge difficulty-easy">Easy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Card 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                       <a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThxMkdnQDOWKLSo3iWOdLnvj2HwbjLl2D-jg&s">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div></a>
+                    </div>
+                    <div class="video-info">
+                        <h5 class="video-title">Paper Mache Bowl from Old Newspapers</h5>
+                        <p class="video-description">Create beautiful decorative bowls using old newspapers and paper mache technique.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock me-1"></i> 15 min</span>
+                            <span class="difficulty-badge difficulty-medium">Medium</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Card 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="https://images.squarespace-cdn.com/content/v1/58dce485a5790a44f40dbde6/105cae70-34a0-4f06-9639-4bf3f96103a0/IMG_6202.jpg" alt="Glass Jar Lantern">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div></a>
+                    </div>
+                    <div class="video-info">
+                        <h5 class="video-title">Glass Jar Lantern</h5>
+                        <p class="video-description">Turn old glass jars into beautiful lanterns with LED lights and decorative patterns.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock me-1"></i> 10 min</span>
+                            <span class="difficulty-badge difficulty-easy">Easy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Card 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <a target="_blank" href="https://www.youtube.com/watch?v=av7MaRvo5pc"><img src="https://i.ytimg.com/vi/av7MaRvo5pc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDr7xl23tuQkYFVasXxDmnnmGvviw">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div></a>
+                    </div>
+                    <div class="video-info">
+                        <h5 class="video-title">Tin Can Desk Organizer</h5>
+                        <p class="video-description">Transform empty tin cans into stylish desk organizers with fabric and paint.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock me-1"></i> 20 min</span>
+                            <span class="difficulty-badge difficulty-medium">Medium</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Card 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                       <a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"> <img src="https://i.pinimg.com/736x/da/67/b2/da67b2b498cb68e32967cc926adfdd58.jpg" alt="Denim Quilt">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div></a>
+                    </div>
+                    <div class="video-info">
+                        <h5 class="video-title">Denim Quilt from Old Jeans</h5>
+                        <p class="video-description">Create a cozy quilt using old denim jeans with a patchwork design.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock me-1"></i> 45 min</span>
+                            <span class="difficulty-badge difficulty-hard">Hard</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Card 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <a target="_blank" href="https://www.youtube.com/watch?v=WnvHRQwoSxQ"><img src="https://i.ytimg.com/vi/WnvHRQwoSxQ/maxresdefault.jpg" alt="Plastic Bottle Bird Feeder">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div></a>
+                    </div>
+                    <div class="video-info">
+                        <h5 class="video-title">Bird Feeder from Plastic Bottle</h5>
+                        <p class="video-description">Make a bird feeder from a plastic bottle and attract birds to your garden.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock me-1"></i> 8 min</span>
+                            <span class="difficulty-badge difficulty-easy">Easy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">© 2024 EcoEarth. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
